@@ -1,24 +1,131 @@
 
+/* =====================================
+   LUNARQUEST - PIXEL ART GAME STYLING
+   ===================================== */
+
+/* Global settings */
 * {
   box-sizing: border-box;
+}
+
+/* Main webpage */
+html {
+  width: 100%;
+  min-height: 100%;
+  background: #050a16;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background: #080f20;
+  min-height: 100dvh;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Arial, sans-serif;
+
+  padding: 20px;
+
+  background-color: #050a16;
+
+  /* Subtle retro space grid */
+  background-image:
+    linear-gradient(
+      rgba(80, 130, 190, 0.06) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(80, 130, 190, 0.06) 1px,
+      transparent 1px
+    );
+
+  background-size: 40px 40px;
+
+  font-family: 'Courier New', monospace;
+
+  overflow-x: hidden;
 }
 
+/* =====================================
+   GAME CONTAINER
+   ===================================== */
+
 #app {
+  position: relative;
+
   width: 100%;
   max-width: 960px;
+
+  margin: 0 auto;
+
+  background: #080e20;
+
+  /* Retro game border */
+  border: 4px solid #78bfff;
+
+  border-radius: 0;
+
+  /* Pixel-like layered shadow */
+  box-shadow:
+    0 0 0 4px #172a45,
+    0 0 0 8px #0b1528,
+    12px 12px 0 #02050c;
+
+  overflow: hidden;
 }
+
+/* =====================================
+   PHASER GAME CANVAS
+   ===================================== */
 
 canvas {
   display: block;
+
   width: 100%;
+  max-width: 100%;
+  height: auto;
+
+  /* Important for pixel art */
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+
+  border: none;
+  border-radius: 0;
+
+  /* Prevent accidental text selection */
+  user-select: none;
+  -webkit-user-select: none;
+
+  /* Preserve normal game interactions */
+  touch-action: manipulation;
+}
+
+/* =====================================
+   RESPONSIVE LAYOUT
+   ===================================== */
+
+@media (max-width: 768px) {
+  body {
+    padding: 12px;
+  }
+
+  #app {
+    border-width: 3px;
+
+    box-shadow:
+      0 0 0 3px #172a45,
+      6px 6px 0 #02050c;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 6px;
+  }
+
+  #app {
+    border-width: 2px;
+    box-shadow: 4px 4px 0 #02050c;
+  }
 }
