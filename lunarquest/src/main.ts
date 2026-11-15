@@ -226,14 +226,39 @@ class LunarScene extends Phaser.Scene {
       const plantHeight = i % 2 === 0 ? 22 : 30;
 
       // Stem
-      px(x + 6, 405 - plantHeight, 4, plantHeight, 0x58c97a);
+      px(
+        x + 6,
+        405 - plantHeight,
+        4,
+        plantHeight,
+        0x58c97a
+      );
 
       // Leaves
-      px(x - 2, 389 - (plantHeight - 22), 12, 8, 0x6ee28b);
-      px(x + 8, 381 - (plantHeight - 22), 12, 8, 0x47b86b);
+      px(
+        x - 2,
+        389 - (plantHeight - 22),
+        12,
+        8,
+        0x6ee28b
+      );
+
+      px(
+        x + 8,
+        381 - (plantHeight - 22),
+        12,
+        8,
+        0x47b86b
+      );
 
       // Top leaf
-      px(x + 2, 373 - (plantHeight - 22), 12, 8, 0x91f0a1);
+      px(
+        x + 2,
+        373 - (plantHeight - 22),
+        12,
+        8,
+        0x91f0a1
+      );
     });
 
     // Greenhouse bottom frame
@@ -294,11 +319,16 @@ class LunarScene extends Phaser.Scene {
       fontStyle: 'bold'
     });
 
-    this.add.text(38, 67, 'JUNIOR ASTRONAUT MISSION TRAINER', {
-      fontFamily: 'monospace',
-      fontSize: '13px',
-      color: '#89b8d7'
-    });
+    this.add.text(
+      38,
+      67,
+      'JUNIOR ASTRONAUT MISSION TRAINER',
+      {
+        fontFamily: 'monospace',
+        fontSize: '13px',
+        color: '#89b8d7'
+      }
+    );
 
     // Resource HUD box
     px(594, 14, 338, 91, 0x22334c);
@@ -308,7 +338,7 @@ class LunarScene extends Phaser.Scene {
     px(594, 14, 338, 3, 0x5e91b5);
     px(594, 102, 338, 3, 0x5e91b5);
 
-    // Resource indicators (original sample values)
+    // Original resource indicators
     this.add.text(615, 24, 'OXYGEN: 100%', {
       fontFamily: 'monospace',
       fontSize: '17px',
@@ -387,7 +417,6 @@ class LunarScene extends Phaser.Scene {
 
     // ============================
     // INTERACTIVE FACILITY PANEL
-    // Original functionality retained
     // ============================
 
     // Panel shadow and body
@@ -421,7 +450,7 @@ class LunarScene extends Phaser.Scene {
 
     // ============================
     // CLICKABLE FACILITIES
-    // Same original game logic
+    // Original logic + hover effects
     // ============================
 
     const facilities = [
@@ -452,6 +481,22 @@ class LunarScene extends Phaser.Scene {
     ];
 
     facilities.forEach((facility) => {
+
+      // Pixel-art hover highlight
+      const highlight = this.add.rectangle(
+        facility.x,
+        facility.y,
+        facility.width,
+        facility.height,
+        0xffffff,
+        0
+      );
+
+      // Blue pixel-style outline
+      highlight.setStrokeStyle(3, 0x78d9ff);
+      highlight.setVisible(false);
+
+      // Original invisible clickable zone
       const zone = this.add.zone(
         facility.x,
         facility.y,
@@ -459,11 +504,25 @@ class LunarScene extends Phaser.Scene {
         facility.height
       );
 
-      zone.setInteractive({ useHandCursor: true });
+      zone.setInteractive({
+        useHandCursor: true
+      });
 
+      // Highlight facility on mouse hover
+      zone.on('pointerover', () => {
+        highlight.setVisible(true);
+      });
+
+      // Remove highlight when mouse leaves
+      zone.on('pointerout', () => {
+        highlight.setVisible(false);
+      });
+
+      // Original click functionality
       zone.on('pointerdown', () => {
         facilityInfo.setText(facility.message);
       });
+
     });
   }
 }
