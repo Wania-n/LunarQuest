@@ -34,23 +34,27 @@ class LunarScene extends Phaser.Scene {
     px(0, 0, width, height, 0x080e20);
 
     // Pixel stars
+
+    // Animated pixel stars
     for (let i = 0; i < 60; i++) {
       const x = Phaser.Math.Between(10, 950);
       const y = Phaser.Math.Between(120, 260);
       const size = i % 5 === 0 ? 4 : 2;
 
-      px(x, y, size, size, 0xffffff, 0.85);
+      const star = px(x, y, size, size, 0xffffff, 0.85);
+
+      // Gentle twinkling animation
+      this.tweens.add({
+        targets: star,
+        alpha: 0.3,
+        duration: Phaser.Math.Between(1200, 2600),
+        yoyo: true,
+        repeat: -1,
+        ease: 'Sine.easeInOut',
+        delay: Phaser.Math.Between(0, 1500)
+      });
     }
 
-    // Distant Earth in the lunar sky
-    px(864, 165, 32, 8, 0x2458a8);
-    px(856, 173, 48, 24, 0x326cc0);
-    px(864, 197, 32, 8, 0x2458a8);
-
-    // Earth land details
-    px(864, 173, 16, 8, 0x53b894);
-    px(880, 181, 16, 8, 0x53b894);
-    px(872, 189, 16, 8, 0x53b894);
 
     // ============================
     // PIXEL MOON LANDSCAPE
@@ -186,7 +190,19 @@ class LunarScene extends Phaser.Scene {
     // Antenna
     px(544, 253, 4, 34, 0xc3d5e6);
     px(536, 249, 20, 4, 0x8daac7);
-    px(540, 241, 12, 8, 0xf9d578);
+   
+    // Animated habitat antenna light
+    const antennaLight = px(540, 241, 12, 8, 0xf9d578);
+
+    this.tweens.add({
+      targets: antennaLight,
+      alpha: 0.25,
+      duration: 800,
+      yoyo: true,
+      repeat: -1,
+      ease: 'Sine.easeInOut'
+    });
+
 
     // ============================
     // GREENHOUSE - PIXEL ART
